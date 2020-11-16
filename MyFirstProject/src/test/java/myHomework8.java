@@ -19,11 +19,11 @@ public class myHomework8 {
 	@Test
 	public void litecartTest() {
 		driver.get("http://localhost/litecart/en/");
-		List<WebElement> elements = driver.findElements(By.xpath("//div[@class = 'image-wrapper']"));
+		List<WebElement> elements = driver.findElements(By.xpath("//li[@class = 'product column shadow hover-light']"));
 		int len = elements.size();
 
 		for (int i = 0; i < len; i++) {
-			List<WebElement> element = elements.get(i).findElements(By.xpath("./div[starts-with(@class, 'sticker')]"));
+			List<WebElement> element = elements.get(i).findElements(By.xpath(".//div[starts-with(@class, 'sticker')]"));
 			if (element.size() == 1) {
 				System.out.println(i + ". One sticker");
 			} else {
