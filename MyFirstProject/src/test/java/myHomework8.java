@@ -19,7 +19,7 @@ public class myHomework8 {
 	@Test
 	public void litecartTest() {
 		driver.get("http://localhost/litecart/en/");
-		List<WebElement> elements = driver.findElements(By.xpath("//li[@class = 'product column shadow hover-light']"));
+		List<WebElement> elements = driver.findElements(By.className("product"));
 		int len = elements.size();
 
 		for (int i = 0; i < len; i++) {
