@@ -7,11 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
-import org.stringtemplate.v4.ST;
 
-import java.nio.charset.Charset;
-import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class myHomework11 {
@@ -37,34 +33,17 @@ public class myHomework11 {
 		Select select = new Select(element);
 		select.selectByValue("US");
 		
-		String mail = givenMail();
-		driver.findElement(By.name("email")).sendKeys(mail);
+		driver.findElement(By.name("email")).sendKeys("client5@mail.ru");
 		driver.findElement(By.name("phone")).sendKeys("+79033875467");
 		driver.findElement(By.name("password")).sendKeys("qwerty");
 		driver.findElement(By.name("confirmed_password")).sendKeys("qwerty");
 		driver.findElement(By.name("create_account")).click();
 		driver.findElement(By.xpath("//div[@class = 'left']//a[@href = 'http://localhost/litecart/en/logout']")).click();
 		
-		driver.findElement(By.name("email")).sendKeys(mail);
+		driver.findElement(By.name("email")).sendKeys("client1@mail.ru");
 		driver.findElement(By.name("password")).sendKeys("qwerty");
 		driver.findElement(By.name("login")).click();
 		driver.findElement(By.xpath("//div[@class = 'left']//a[@href = 'http://localhost/litecart/en/logout']")).click();
-	}
-	
-	public String givenMail() {
-		char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-		StringBuilder sb = new StringBuilder(5);
-		Random random = new Random();
-		for (int i = 0; i < 5; i++) {
-			char c = chars[random.nextInt(chars.length)];
-			sb.append(c);
-		}
-		String mail = sb.toString();
-		String[] domen = {"@yandex.ru", "@mail.ru", "@rambler.com", "@gmail.com", "@Ukr.net "};
-		int index = 0 + (int)(Math.random() * 4);
-		mail += domen[index];
-		
-		return mail;
 	}
 	
 	@After
