@@ -1,3 +1,4 @@
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,9 +9,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-public class myHomework11 {
+public class myHomework12 {
 	private WebDriver   driver;
 
 	
@@ -21,30 +23,52 @@ public class myHomework11 {
 	}
 	
 	@Test
-	public void         openTest() {
-		driver.get("http://localhost/litecart/en/create_account");
-		driver.findElement(By.name("firstname")).sendKeys("Ivan");
-		driver.findElement(By.name("lastname")).sendKeys("Ivanov");
-		driver.findElement(By.name("address1")).sendKeys("Backstreet avenue");
-		driver.findElement(By.name("postcode")).sendKeys("12345");
-		driver.findElement(By.name("city")).sendKeys("Briton");
-		
-		WebElement element = driver.findElement(By.tagName("select"));
-		Select select = new Select(element);
-		select.selectByValue("US");
-		
-		driver.findElement(By.name("email")).sendKeys("client5@mail.ru");
-		driver.findElement(By.name("phone")).sendKeys("+79033875467");
-		driver.findElement(By.name("password")).sendKeys("qwerty");
-		driver.findElement(By.name("confirmed_password")).sendKeys("qwerty");
-		driver.findElement(By.name("create_account")).click();
-		driver.findElement(By.xpath("//div[@class = 'left']//a[@href = 'http://localhost/litecart/en/logout']")).click();
-		
-		driver.findElement(By.name("email")).sendKeys("client1@mail.ru");
-		driver.findElement(By.name("password")).sendKeys("qwerty");
+	public void         newProductTest() {
+		driver.get("http://localhost/litecart/admin/");
+		driver.findElement(By.name("username")).sendKeys("admin");
+		driver.findElement(By.name("password")).sendKeys("admin");
 		driver.findElement(By.name("login")).click();
-		driver.findElement(By.xpath("//div[@class = 'left']//a[@href = 'http://localhost/litecart/en/logout']")).click();
+		
+		//Catalog
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		driver.findElement(By.linkText("Catalog")).click();
+		driver.findElement(By.linkText("Add New Product")).click();
+		driver.findElement(By.cssSelector("label")).click();
+		
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		driver.findElement(By.cssSelector("[name = 'name[en]']")).sendKeys("Cats");
+		driver.findElement(By.name("code")).sendKeys("1234");
+		driver.findElement(By.cssSelector("[value = '1-3']")).click();
+		driver.findElement(By.name("quantity")).sendKeys("1");
+		driver.findElement(By.cssSelector("[name = 'new_images[]']")).sendKeys((new File("src/test/java/cc.jpeg").getAbsolutePath()));
+		driver.findElement(By.name("date_valid_from")).sendKeys("2020-11-18");
+		driver.findElement(By.name("date_valid_to")).sendKeys("2020-11-28");
+
+		
+		//Information
+		driver.findElement(By.linkText("Information")).click();
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		WebElement elem = driver.findElement(By.name("manufacturer_id"));
+		Select select = new Select(elem);
+		select.selectByValue("1");
+		driver.findElement(By.name("keywords")).sendKeys("cat");
+		driver.findElement(By.name("short_description[en]")).sendKeys("Мягкая игрушка Budi Basa Басик и мышка 22 см");
+		driver.findElement(By.name("description[en]")).sendKeys("Мягкая игрушка Budi Basa Басик и мышка 22 см");
+		driver.findElement(By.name("head_title[en]")).sendKeys("Budi Basa");
+		driver.findElement(By.name("meta_description[en]")).sendKeys("Budi Basa");
+		
+		//Prices
+		driver.findElement(By.linkText("Prices")).click();
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		driver.findElement(By.name("purchase_price")).sendKeys("20");
+		WebElement price = driver.findElement(By.name("purchase_price_currency_code"));
+		Select sel = new Select(price);
+		sel.selectByValue("USD");
+		driver.findElement(By.name("prices[USD]")).sendKeys("20");
+		driver.findElement(By.name("prices[EUR]")).sendKeys("18");
+		driver.findElement(By.name("save")).click();
 	}
+	
 	
 	@After
 	public void stop() {
