@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -104,6 +103,13 @@ class                       addProductPage extends Page {
 		}
 		return true;
 	}
+	
+	public int countOfProduct() {
+		int num = 0;
+		WebElement count = driver.findElement(By.className("quantity"));
+		num = Integer.parseInt(count.getText());
+		return num;
+	}
 }
 
 class                           deleteProductPage extends Page {
@@ -144,6 +150,10 @@ class   Application {
 	
 	public void click() {
 		mPage.clickProduct();
+	}
+	
+	public int length() {
+		return aPage.countOfProduct();
 	}
 	
 	public void add() {
